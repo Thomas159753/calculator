@@ -6,12 +6,27 @@ body{
     padding-top: 51px;
 }
 
+.textDisplay{
+    color: aliceblue;
+    font-weight: 700;
+    font-size: 40px;
+    margin-right: 20px;
+    margin-bottom: 4px;
+    margin-top: 30px;
+
+}
+
 #display{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
     background-color: #2f424a;
     height: 230px;
     width: 340px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+
 }
 
 .buttons{
@@ -57,7 +72,7 @@ body{
     font-weight: 700;
 }
 
-.equal{
+#equal{
     font-size: 25px;
     height: 50px;
     width: 50px;
@@ -68,5 +83,19 @@ body{
     overflow: hidden;
     outline: none;
     background-repeat: no-repeat;
+    font-weight: 700;
+}
+
+.function, .empty{
+    font-size: 25px;
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: aliceblue;
     font-weight: 700;
 }
