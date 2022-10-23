@@ -18,27 +18,35 @@ function add(a, b){
 }
 
 function sub(a, b){
-    return a - b
+  textdisplay.innerText = +a - +b;
 }
 
 function mult(a, b){
-  return a * b
+  textdisplay.innerText = +a * +b;
 }
 
 function div(a, b){
-  return a / b
+  textdisplay.innerText = +a / +b;
 }
 
 function operate(operator, a, b){
   if (operator === "+") {
-    add(a, b)
+    add(a, b);
   }
-
+  else if (operator === "-") {
+    sub(a,b);
+  }
+  else if (operator === "×") {
+    mult(a,b);
+  }
+  else if (operator === "÷") {
+    div(a,b);
+  }
 }
 
 backspace.addEventListener('click', () => textdisplay.innerText = textdisplay.innerText.slice(0, -1));
 
-clear.addEventListener('click', () => textdisplay.innerText = "");
+clear.addEventListener('click', () => ClearHistory());
 
 equal.addEventListener('click', () => startEvaluation());
 
@@ -47,24 +55,28 @@ numbers.forEach((button) =>
 )
 
 operators.forEach((button) =>
-  button.addEventListener('click', () => appendOperator(button.innerText))
+  button.addEventListener('click', () => appendOperator(button.innerHTML))
 )
+function ClearHistory (){
+  textdisplay.innerText = null;
+  historyDisplay.innerText = null;
+}
 
 function appendNumber(number,symbol ) {
   textdisplay.innerText += number, symbol;
     return textdisplay;
 }
 
-function appendOperator(Getoperators){
+function appendOperator(operators){
   firstValue = textdisplay.innerText;
-  operator = Getoperators;
-  historyDisplay.innerText = textdisplay.innerText + operator;
+  operator = operators;
+  historyDisplay.innerText = firstValue + operator;
   textdisplay.innerText = null;
 
 }
 
 function startEvaluation(){
   secondValue = textdisplay.innerText;
+  historyDisplay.innerText = firstValue + operator + secondValue;
   operate(operator, firstValue, secondValue);
-
 }
