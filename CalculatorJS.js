@@ -1,6 +1,7 @@
 let firstValue = null;
 let secondValue = null;
 let operator = null;
+let valueRotation = true;
 
 const operators = document.querySelectorAll('.operator');
 const numbers = document.querySelectorAll('.number');
@@ -14,11 +15,12 @@ const historyDisplay = document.getElementById('historyDisplay');
 
 function add(a, b){
  textdisplay.innerText = +a + +b;
-
+ firstValue = textdisplay.innerText
 }
 
 function sub(a, b){
   textdisplay.innerText = +a - +b;
+  firstValue = textdisplay.innerText;
 }
 
 function mult(a, b){
@@ -60,23 +62,76 @@ operators.forEach((button) =>
 function ClearHistory (){
   textdisplay.innerText = null;
   historyDisplay.innerText = null;
+  firstValue = null;
+  secondValue = null;
+  operator = null;
 }
 
-function appendNumber(number,symbol ) {
-  textdisplay.innerText += number, symbol;
+function appendNumber(number) {
+  if (secondValue !== null){ //prevents adding number in screen if there is one
+    textdisplay.innerText = null;
+  }
+
+  if (number === "."){
+    console.log("works")
+  }
+  textdisplay.innerText += number;
     return textdisplay;
 }
 
 function appendOperator(operators){
-  firstValue = textdisplay.innerText;
-  operator = operators;
-  historyDisplay.innerText = firstValue + operator;
-  textdisplay.innerText = null;
-
+  if (valueRotation === false){
+    secondValue = textdisplay.innerText
+    operate(operator, firstValue, secondValue)
+    operator = operators;
+    historyDisplay.innerText = textdisplay.innerText + operator;
+    textdisplay.innerText = null;
+  }
+  
+  if (valueRotation === true) {
+    operator = operators
+    firstValue = textdisplay.innerText;
+    historyDisplay.innerText = textdisplay.innerText + operator;
+    textdisplay.innerText = null;
+  }
+  valueRotation = false;
 }
 
 function startEvaluation(){
   secondValue = textdisplay.innerText;
   historyDisplay.innerText = firstValue + operator + secondValue;
   operate(operator, firstValue, secondValue);
+  valueRotation = true;
 }
+//---------test area
+
+// function appendNumber(number) {
+//   if (secondValue !== null){ //prevents adding number in screen if there is one
+//     textdisplay.innerText = null;
+//   }
+//   textdisplay.innerText += number;
+//     return textdisplay;
+// }
+
+// function appendOperator(operators){
+//   if (operator !== null){
+//     secondValue = historyDisplay.innerText.slice(0,1);
+//     operate(operator, firstValue, secondValue);
+//     operator = operators;
+//     firstValue = textdisplay.innerText;
+//     historyDisplay.innerText = firstValue + operator ;
+//   }
+
+//   else {
+//     firstValue = textdisplay.innerText;
+//     operator = operators;
+//     historyDisplay.innerText = firstValue + operator;
+//     textdisplay.innerText = null;
+//   }
+// }
+
+// function startEvaluation(){
+//   secondValue = textdisplay.innerText;
+//   historyDisplay.innerText = firstValue + operator + secondValue;
+//   operate(operator, firstValue, secondValue);
+// }
