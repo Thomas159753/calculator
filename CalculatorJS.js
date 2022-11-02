@@ -72,11 +72,14 @@ function appendNumber(number) {
     textdisplay.innerText = null;
   }
 
-  if (number === "."){
-    console.log("works")
+  if (number === "." && textdisplay.innerText === null){
+    textdisplay.innerText += number;
   }
+  
+  if (number >= 0) {
   textdisplay.innerText += number;
     return textdisplay;
+  }
 }
 
 function appendOperator(operators){
@@ -103,35 +106,8 @@ function startEvaluation(){
   operate(operator, firstValue, secondValue);
   valueRotation = true;
 }
-//---------test area
 
-// function appendNumber(number) {
-//   if (secondValue !== null){ //prevents adding number in screen if there is one
-//     textdisplay.innerText = null;
-//   }
-//   textdisplay.innerText += number;
-//     return textdisplay;
-// }
+// ------- notes
 
-// function appendOperator(operators){
-//   if (operator !== null){
-//     secondValue = historyDisplay.innerText.slice(0,1);
-//     operate(operator, firstValue, secondValue);
-//     operator = operators;
-//     firstValue = textdisplay.innerText;
-//     historyDisplay.innerText = firstValue + operator ;
-//   }
-
-//   else {
-//     firstValue = textdisplay.innerText;
-//     operator = operators;
-//     historyDisplay.innerText = firstValue + operator;
-//     textdisplay.innerText = null;
-//   }
-// }
-
-// function startEvaluation(){
-//   secondValue = textdisplay.innerText;
-//   historyDisplay.innerText = firstValue + operator + secondValue;
-//   operate(operator, firstValue, secondValue);
-// }
+// first thry to make the dot to work with the appendNumber function
+// should i make a new function for the dot?
