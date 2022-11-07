@@ -14,21 +14,27 @@ const historyDisplay = document.getElementById('historyDisplay');
 
 
 function add(a, b){
- textdisplay.innerText = +a + +b;
- firstValue = textdisplay.innerText
+ result = +a + +b;
+ textdisplay.innerText = result.toFixed(2);
+ firstValue = textdisplay.innerText;
 }
 
 function sub(a, b){
-  textdisplay.innerText = +a - +b;
+  result = +a - +b;
+  textdisplay.innerText = result.toFixed(2);
   firstValue = textdisplay.innerText;
 }
 
 function mult(a, b){
-  textdisplay.innerText = +a * +b;
+  result = +a * +b;
+  textdisplay.innerText = result.toFixed(2);
+  firstValue = textdisplay.innerText;
 }
 
 function div(a, b){
-  textdisplay.innerText = +a / +b;
+  result = +a / +b;
+  textdisplay.innerText = result.toFixed(2);
+  firstValue = textdisplay.innerText;
 }
 
 function operate(operator, a, b){
@@ -41,8 +47,12 @@ function operate(operator, a, b){
   else if (operator === "×") {
     mult(a,b);
   }
-  else if (operator === "÷") {
+  else if (operator === "÷" && secondValue !== "0") {
     div(a,b);
+  }
+  else if (operator === "÷" && secondValue === "0"){
+    ClearHistory();
+    historyDisplay.innerText = "WHY????";
   }
 }
 
@@ -72,12 +82,12 @@ function appendNumber(number) {
     textdisplay.innerText = null;
   }
 
-  if (number === "." && textdisplay.innerText === null){
-    textdisplay.innerText += number;
+  if (number === "."){
+    addDot(number);
   }
-  
+
   if (number >= 0) {
-  textdisplay.innerText += number;
+    textdisplay.innerText += number;
     return textdisplay;
   }
 }
@@ -107,7 +117,17 @@ function startEvaluation(){
   valueRotation = true;
 }
 
+function addDot (number){
+  
+  if (textdisplay.innerText === ""){
+    textdisplay.innerText = "0" + number;
+  }
+  if (textdisplay.innerText.includes(".")) return
+  textdisplay.innerText += number;
+}
+
 // ------- notes
 
 // first thry to make the dot to work with the appendNumber function
 // should i make a new function for the dot?
+// do i need to fix value rotation after i press clear?
