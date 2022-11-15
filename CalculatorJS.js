@@ -2,6 +2,7 @@ let firstValue = null;
 let secondValue = null;
 let operator = null;
 let valueRotation = true;
+let screenReset = false;
 
 const operators = document.querySelectorAll('.operator');
 const numbers = document.querySelectorAll('.number');
@@ -15,26 +16,32 @@ const historyDisplay = document.getElementById('historyDisplay');
 
 function add(a, b){
  result = +a + +b;
- textdisplay.innerText = result.toFixed(2);
+ textdisplay.innerText = Math.round(result * 1000) / 1000
  firstValue = textdisplay.innerText;
+ 
 }
 
 function sub(a, b){
   result = +a - +b;
-  textdisplay.innerText = result.toFixed(2);
+  textdisplay.innerText = Math.round(result * 1000) / 1000
   firstValue = textdisplay.innerText;
 }
 
 function mult(a, b){
   result = +a * +b;
-  textdisplay.innerText = result.toFixed(2);
+  textdisplay.innerText = Math.round(result * 1000) / 1000
   firstValue = textdisplay.innerText;
 }
 
 function div(a, b){
   result = +a / +b;
-  textdisplay.innerText = result.toFixed(2);
+  textdisplay.innerText = Math.round(result * 1000) / 1000
   firstValue = textdisplay.innerText;
+}
+
+function perc(a,b){
+  result = (100 * a) / b;
+  textdisplay.innerText = Math.round(result * 1000) / 1000
 }
 
 function operate(operator, a, b){
@@ -46,6 +53,9 @@ function operate(operator, a, b){
   }
   else if (operator === "×") {
     mult(a,b);
+  }
+  else if (operator === "%") {
+    perc(a,b);
   }
   else if (operator === "÷" && secondValue !== "0") {
     div(a,b);
@@ -75,11 +85,19 @@ function ClearHistory (){
   firstValue = null;
   secondValue = null;
   operator = null;
+  valueRotation = true;
+  screenReset = false;
 }
 
 function appendNumber(number) {
-  if (secondValue !== null){ //prevents adding number in screen if there is one
+  if (screenReset === true){ //prevents adding number in screen if there is one
     textdisplay.innerText = null;
+  }
+  // if (textdisplay.innerText.includes("0") && !textdisplay.innerText.includes(".") ) {     i like this line so i keep it her
+  // textdisplay.innerText = null}
+
+  if (textdisplay.innerText === "" && number === "0"){  // this one works better
+    return;
   }
 
   if (number === "."){
@@ -111,6 +129,7 @@ function appendOperator(operators){
 }
 
 function startEvaluation(){
+  screenReset = true;
   secondValue = textdisplay.innerText;
   historyDisplay.innerText = firstValue + operator + secondValue;
   operate(operator, firstValue, secondValue);
@@ -128,6 +147,9 @@ function addDot (number){
 
 // ------- notes
 
-// first thry to make the dot to work with the appendNumber function
-// should i make a new function for the dot?
-// do i need to fix value rotation after i press clear?
+// when you start the calculator and you press a number and then 
+// you press equal it adds a zero at the front
+
+
+//percen doesnt work yet
+// keyboard not inported yet
