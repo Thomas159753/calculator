@@ -11,6 +11,7 @@ const clear = document.getElementById('AC');
 const backspace = document.getElementById('backspace');
 const equal = document.getElementById('equal');
 const historyDisplay = document.getElementById('historyDisplay');
+const percentage = document.querySelector('.percent');
 
 
 
@@ -39,9 +40,31 @@ function div(a, b){
   firstValue = textdisplay.innerText;
 }
 
-function perc(a,b){
-  result = (100 * a) / b;
-  textdisplay.innerText = Math.round(result * 1000) / 1000
+// function perc(a,b){
+//   result = (100 * a) / b;
+//   textdisplay.innerText = Math.round(result * 1000) / 1000
+// }
+
+function percentEvaluation(a,operator){
+  b = textdisplay.innerText
+  percentResult = (+a / 100) * +b;
+  b = percentResult;
+  if (operator === "+") {
+    add(a, b);
+  }
+  else if (operator === "-") {
+    sub(a,b);
+  }
+  else if (operator === "×") {
+    mult(a,b);
+  }
+  else if (operator === "÷" && secondValue !== "0") {
+    div(a,b);
+  }
+  else if (operator === "÷" && secondValue === "0"){
+    ClearHistory();
+    historyDisplay.innerText = "WHY????";
+  }
 }
 
 function operate(operator, a, b){
@@ -53,9 +76,6 @@ function operate(operator, a, b){
   }
   else if (operator === "×") {
     mult(a,b);
-  }
-  else if (operator === "%") {
-    perc(a,b);
   }
   else if (operator === "÷" && secondValue !== "0") {
     div(a,b);
@@ -71,6 +91,8 @@ backspace.addEventListener('click', () => textdisplay.innerText = textdisplay.in
 clear.addEventListener('click', () => ClearHistory());
 
 equal.addEventListener('click', () => startEvaluation());
+
+percentage.addEventListener('click', () => percentEvaluation(firstValue,operator));
 
 numbers.forEach((button) =>
   button.addEventListener('click', () => appendNumber(button.innerText))
@@ -131,7 +153,7 @@ function appendOperator(operators){
 function startEvaluation(){
   screenReset = true;
   secondValue = textdisplay.innerText;
-  historyDisplay.innerText = firstValue + operator + secondValue;
+  historyDisplay.innerText = +firstValue + operator + +secondValue;
   operate(operator, firstValue, secondValue);
   valueRotation = true;
 }
@@ -147,9 +169,8 @@ function addDot (number){
 
 // ------- notes
 
-// when you start the calculator and you press a number and then 
-// you press equal it adds a zero at the front
+// first stage is finished later i want to add more history
+// buttons to be added
+// and an undo button
 
 
-//percen doesnt work yet
-// keyboard not inported yet
